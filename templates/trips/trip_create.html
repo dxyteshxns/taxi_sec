@@ -1,0 +1,30 @@
+﻿{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Order Taxi - Taxi Service{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="bi bi-taxi-front"></i> Order a Taxi</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-primary w-100 mt-3">
+                            <i class="bi bi-send"></i> Submit Request
+                        </button>
+                        <a href="{% url 'trips:trip_list' %}" class="btn btn-secondary w-100 mt-2">
+                            <i class="bi bi-arrow-left"></i> Back to My Trips
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

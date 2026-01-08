@@ -1,0 +1,130 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Home - Taxi Service{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <div class="row align-items-center py-5">
+        <div class="col-lg-6">
+            <h1 class="display-4 fw-bold">Welcome to Taxi Service</h1>
+            <p class="lead text-muted">Your reliable partner for comfortable and safe rides.</p>
+            <p class="text-muted">
+                Book a taxi in seconds, track your driver in real-time, and enjoy a smooth ride to your destination.
+            </p>
+            <div class="mt-4">
+                {% if user.is_authenticated %}
+                    {% if user.is_driver %}
+                        <a href="{% url 'trips:available_trips' %}" class="btn btn-primary btn-lg">
+                            <i class="bi bi-search"></i> View Available Trips
+                        </a>
+                    {% else %}
+                        <a href="{% url 'trips:trip_create' %}" class="btn btn-primary btn-lg">
+                            <i class="bi bi-taxi-front"></i> Order a Taxi
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'trips:trip_list' %}" class="btn btn-outline-primary btn-lg ms-2">
+                        <i class="bi bi-list"></i> My Trips
+                    </a>
+                {% else %}
+                    <a href="{% url 'accounts:register' %}" class="btn btn-primary btn-lg">
+                        <i class="bi bi-person-plus"></i> Get Started
+                    </a>
+                    <a href="{% url 'accounts:login' %}" class="btn btn-outline-primary btn-lg ms-2">
+                        Login
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="text-center">
+                <i class="bi bi-taxi-front text-primary" style="font-size: 15rem; opacity: 0.1;"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row g-4 py-5">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-lightning-charge text-primary" style="font-size: 3rem;"></i>
+                    <h5 class="card-title mt-3">Fast Booking</h5>
+                    <p class="card-text text-muted">
+                        Book your ride in just a few clicks. Quick and easy process.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-shield-check text-primary" style="font-size: 3rem;"></i>
+                    <h5 class="card-title mt-3">Safe & Secure</h5>
+                    <p class="card-text text-muted">
+                        All our drivers are verified professionals with valid licenses.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-cash-coin text-primary" style="font-size: 3rem;"></i>
+                    <h5 class="card-title mt-3">Affordable Prices</h5>
+                    <p class="card-text text-muted">
+                        Transparent pricing with no hidden fees. Pay only for what you use.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="row py-5">
+        <div class="col-12">
+            <h2 class="text-center mb-5">How It Works</h2>
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="mb-3">
+                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" 
+                     style="width: 60px; height: 60px;">
+                    <span class="fs-4 fw-bold">1</span>
+                </div>
+            </div>
+            <h5>Register</h5>
+            <p class="text-muted">Create your account as a rider or driver</p>
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="mb-3">
+                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" 
+                     style="width: 60px; height: 60px;">
+                    <span class="fs-4 fw-bold">2</span>
+                </div>
+            </div>
+            <h5>Book</h5>
+            <p class="text-muted">Enter your pickup and destination</p>
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="mb-3">
+                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" 
+                     style="width: 60px; height: 60px;">
+                    <span class="fs-4 fw-bold">3</span>
+                </div>
+            </div>
+            <h5>Match</h5>
+            <p class="text-muted">Get matched with a nearby driver</p>
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="mb-3">
+                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" 
+                     style="width: 60px; height: 60px;">
+                    <span class="fs-4 fw-bold">4</span>
+                </div>
+            </div>
+            <h5>Ride</h5>
+            <p class="text-muted">Enjoy your comfortable ride</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

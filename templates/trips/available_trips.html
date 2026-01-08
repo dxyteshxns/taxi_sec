@@ -1,0 +1,75 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Available Trips - Taxi Service{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Available Trips</h2>
+
+    {% if trips %}
+    <div class="row">
+        {% for trip in trips %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-warning">
+                    <h5 class="mb-0">Trip #{{ trip.id }}</h5>
+                </div>
+                <div class="card-body">
+                    <p class="mb-2">
+                        <i class="bi bi-geo-alt"></i> <strong>From:</strong> {{ trip.origin }}
+                    </p>
+                    <p class="mb-2">
+                        <i class="bi bi-geo-alt-fill"></i> <strong>To:</strong> {{ trip.destination }}
+                    </p>
+                    {% if trip.comment %}
+                    <p class="mb-2">
+                        <i class="bi bi-chat-left-text"></i> <strong>Comment:</strong> {{ trip.comment }}
+                    </p>
+                    {% endif %}
+                    <p class="text-muted small mb-3">
+                        <i class="bi bi-clock"></i> {{ trip.created_at|date:"M d, Y H:i" }}
+                    </p>
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'trips:trip_detail' trip.pk %}" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-eye"></i> View Details
+                        </a>
+                        <a href="{% url 'trips:accept_trip' trip.pk %}" class="btn btn-sm btn-success">
+                            <i class="bi bi-check-circle"></i> Accept Trip
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+            {% endif %}
+
+            <li class="page-item active">
+                <span class="page-link">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            </li>
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+
+    {% else %}
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i> No available trips at the moment. Please check back later!
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

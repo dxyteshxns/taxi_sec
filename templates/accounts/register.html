@@ -1,0 +1,54 @@
+﻿{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Register - Taxi Service{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm mt-5">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">Create Account</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-primary w-100 mt-3">
+                            <i class="bi bi-person-plus"></i> Register
+                        </button>
+                    </form>
+                    <hr class="my-4">
+                    <p class="text-center text-muted">
+                        Already have an account? 
+                        <a href="{% url 'accounts:login' %}">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Show/hide driver fields based on role selection
+document.addEventListener('DOMContentLoaded', function() {
+    const roleInputs = document.querySelectorAll('input[name="role"]');
+    const driverFields = ['license_number', 'car_number', 'car_model', 'description'];
+    
+    function toggleDriverFields() {
+        const isDriver = document.querySelector('input[name="role"]:checked').value === 'driver';
+        driverFields.forEach(fieldName => {
+            const field = document.getElementById('div_id_' + fieldName);
+            if (field) {
+                field.style.display = isDriver ? 'block' : 'none';
+            }
+        });
+    }
+    
+    roleInputs.forEach(input => {
+        input.addEventListener('change', toggleDriverFields);
+    });
+    
+    toggleDriverFields();
+});
+</script>
+{% endblock %}
