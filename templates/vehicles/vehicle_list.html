@@ -1,1 +1,30 @@
-{% extends "base.html" %}{% block title %}My Vehicles{% endblock %}{% block content %}<div class="container"><h2>My Vehicles</h2><a href="{% url "vehicles:vehicle_create" %}" class="btn btn-primary mb-3">Add Vehicle</a>{% if vehicles %}<div class="row">{% for vehicle in vehicles %}<div class="col-md-6 mb-3"><div class="card"><div class="card-body"><h5>{{ vehicle.car_model }}</h5><p>Number: {{ vehicle.car_number }}</p><p>Seats: {{ vehicle.seats }}</p><a href="{% url "vehicles:vehicle_detail" vehicle.pk %}" class="btn btn-sm btn-primary">View</a><a href="{% url "vehicles:vehicle_update" vehicle.pk %}" class="btn btn-sm btn-warning">Edit</a></div></div></div>{% endfor %}</div>{% else %}<p>No vehicles yet.</p>{% endif %}</div>{% endblock %}
+{% extends "base.html" %}
+
+{% block title %}My Vehicles{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>My Vehicles</h2>
+    <a href="{% url 'vehicles:vehicle_create' %}" class="btn btn-primary mb-3">Add Vehicle</a>
+    
+    {% if vehicles %}
+    <div class="row">
+        {% for vehicle in vehicles %}
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>{{ vehicle.car_model }}</h5>
+                    <p>Number: {{ vehicle.car_number }}</p>
+                    <p>Seats: {{ vehicle.seats }}</p>
+                    <a href="{% url 'vehicles:vehicle_detail' vehicle.pk %}" class="btn btn-sm btn-primary">View</a>
+                    <a href="{% url 'vehicles:vehicle_update' vehicle.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No vehicles yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
